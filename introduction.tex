@@ -8,19 +8,11 @@
 \begin{frame}
 \frametitle{Goals}
 
-What you should know by the end:
+Goals for this session:
 \begin{itemize}
-\item How to install SP software
-\item General understanding about Shibboleth
-\item How to configure SP software
-\end{itemize}
-
-\bigskip
-
-What you should have done by the end
-\begin{itemize}
-\item Installed your SP
-\item Learned how to protect your content
+\item Understand general concepts behind Shibboleth
+\item Learn how to install and configure software
+\item Learn how to protect your content
 \end{itemize}
 
 \end{frame}
@@ -40,32 +32,44 @@ You should have the following ready for this class:
 
 \begin{frame}
 \frametitle{Definitions}
-\begin{itemize} 
-\item Shibboleth Service Provider (SP) \\ You and the SP software that you install and maintain on your webserver.
-\item Shibboleth Identity Provider ( IdP ) \\ The central authentication server. The IdP authenticates the user and vends attributes about the user.
+\begin{itemize} % Wikipedia.org definitions. Citation needed on build output.
+\item Security Assertion Markup Language (SAML) \\ An XML-based open standard for exchanging authentication and authorization data between security domains
+\item Shibboleth Service Provider (SP) \\ You, your application, or the SP software that you install and maintain on your webserver (a consumer of assertions).
+\item Shibboleth Identity Provider (IdP) \\ The central authentication server. The IdP authenticates the user and vends attributes about the user (a producer of assertions).
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Definitions (continued)}
-\begin{itemize}
-\item Security Assertion Markup Language (SAML) \\ An XML standard for exchanging authentication and authorization data.
+\begin{itemize} % Wikipedia.org definitions. Citation needed on build output.
 \item Service Endpoint \\ A set of URLs on the SP and IdP that are used to transfer SAML documents.
 \item Metadata \\ A document that names all of the service endpoints.
 \end{itemize}
+A service provider relies on an identity provider to identify a principal. At the principal's request, the identity provider passes a SAML assertion to the service provider. On the basis of this
+assertion, the service provider makes an access control decision.
+\end{frame}
+
+\begin{frame}
+\frametitle{Definitions (continued)}
+\begin{itemize} % Wikipedia.org definitions. Citation needed on build output.
+\item Uniform Resource Identifier (URI) \\ A string of characters used to identify a name or a resource
+\item Uniform Resource Name (URN) \\ A URI that uses the urn scheme and does not imply availability of the identified resource
+\item Entity Identifier (entityID) \\ A universal resource name (URN) that identifies your SP
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Definitions (continued)}
 \begin{itemize}
-\item Entity Identifier (entityID) \\ A universal resource name (URN) that identifies your SP
 \item All entityID's for UF take the following form: \begin{itemize}
 \item \texttt{urn:edu:ufl:prod:XXXXX} for production
 \item \texttt{urn:edu:ufl:test:XXXXX} for test
 \item \texttt{urn:edu:ufl:dev:XXXXX} for development
 \end{itemize}
+\item It also common to see URL based entity IDs: \url{https://idp_name.example.edu/idp}
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Shibboleth software on your SP}
@@ -106,7 +110,7 @@ The directions are similar between Windows/IIS and Unix/Apache.
 {\tiny See \url{http://www.it.ufl.edu/identity/shibboleth/technicalapache.html}.}
 
 \begin{itemize}
-\item Download and install the RPMs from this page for your platform
+\item Download and install the RPMs from this page for your platform, or use your favorite package manager
 \item Edit Apache config to load the shibboleth module and set UseCanonicalName
 \item Restart Apache and start the Shibboleth daemon
 \end{itemize}
@@ -196,10 +200,11 @@ and the webserver should respond with your SP's metadata at this URL: \\ \bigski
 
 \begin{frame}
 \frametitle{Protecting Content}
-Two ways to accomplish content protection:
+Ways to accomplish content protection:
 \begin{itemize}
 \item Modify shibboleth2.xml
 \item Modify .htaccess (Apache only)
+\item Application logic
 \end{itemize}
 \end{frame}
 
@@ -280,9 +285,16 @@ Require primary-affliation ~ S|F
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Protecting Content (Application logic)}
+Use the application programming language of your choice. Create applications that are controlled by the existence of webserver environment variables.
+\end{frame}
+
 \begin{frame}
 \frametitle{Questions?}
-\center{Thank you.}
+\center{Thank you.} \\
+\bigskip
+Also, please see these resources: \url{http://open-systems.ufl.edu/shibboleth/resources}
 \end{frame}
 
 \end{document}
